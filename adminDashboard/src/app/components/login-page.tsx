@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
@@ -16,23 +15,24 @@ export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (loading) return;
+
     setLoading(true);
 
     try {
-      const res = await fetch("https://webnexa-backend.onrender.com/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
+      const res = await fetch(
+        "https://webnexa-backend.onrender.com/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       if (!res.ok) {
         throw new Error("Invalid credentials");
@@ -40,15 +40,21 @@ export function LoginPage() {
 
       const data = await res.json();
 
-      // ✅ SAVE TOKEN
+      // ✅ Save token
       localStorage.setItem("admin_token", data.access_token);
 
-      // ✅ REDIRECT
-      navigate("/dashboard");
-      toast.success("Logged in successfully!");
+      console.log("Saved token:", localStorage.getItem("admin_token"));
+
+      toast.success("Logged in successfully! Redirecting...");
+
+      // ✅ HARD REDIRECT (fixes Vercel routing issues)
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 500);
+
     } catch (err) {
-      alert("Invalid email or password");
-      toast.error("Invalid credentials");
+      console.error(err);
+      toast.error("Invalid email or password");
     } finally {
       setLoading(false);
     }
@@ -68,6 +74,7 @@ export function LoginPage() {
             Sign in to manage your leads
           </CardDescription>
         </CardHeader>
+
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
@@ -79,6 +86,7 @@ export function LoginPage() {
                 required
               />
             </div>
+
             <div className="space-y-2">
               <Label>Password</Label>
               <Input
@@ -88,6 +96,7 @@ export function LoginPage() {
                 required
               />
             </div>
+
             <Button type="submit" disabled={loading} className="w-full">
               {loading ? "Signing in..." : "Sign In"}
             </Button>
