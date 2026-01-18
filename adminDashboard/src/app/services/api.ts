@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://webnexa-backend.onrender.com/api";
 
 export type Lead = {
   _id: string;
@@ -56,7 +56,7 @@ export async function deleteLead(id: string) {
 export async function fetchDashboardStats() {
   const token = localStorage.getItem("admin_token");
 
-  const res = await fetch("http://localhost:3000/api/leads/stats/summary", {
+  const res = await fetch("https://webnexa-backend.onrender.com/api/leads/stats/summary", {
     headers: {
       Authorization: `Bearer ${token}`,
     },

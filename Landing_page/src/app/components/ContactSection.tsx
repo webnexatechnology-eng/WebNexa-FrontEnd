@@ -28,7 +28,7 @@ export function ContactSection() {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 15000);
 
-      const res = await fetch("http://localhost:3000/api/leads", {
+      const res = await fetch("https://webnexa-backend.onrender.com/api/leads", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

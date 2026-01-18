@@ -24,7 +24,7 @@ import { Eye, Trash2 } from "lucide-react";
 import { LeadDetailsModal } from "@/app/components/lead-details-modal";
 import { format } from "date-fns";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://webnexa-backend.onrender.com/api";
 
 type LeadStatus = "new" | "contacted" | "converted";
 
