@@ -1,119 +1,97 @@
-import { ExternalLink, ArrowRight } from 'lucide-react';
-import { Button } from '@/app/components/ui/button';
-import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
-import { motion } from 'motion/react';
-import { Link, useNavigate } from 'react-router-dom';
-import { projects } from '@/app/data/projects';
+import { motion } from "motion/react";
+import { ShieldCheck, Building2, Rocket, Layers } from "lucide-react";
 
 export function PortfolioSection() {
-  const navigate = useNavigate();
-  
-  // Take only first 3 projects for preview
-  const featuredProjects = projects.slice(0, 3);
-
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.2,
-      },
+  const projects = [
+    {
+      icon: Building2,
+      title: "Enterprise CRM & Sales Automation Platform",
+      industry: "B2B Services Company",
+      problem: "Client needed a centralized system to manage leads, sales pipeline, and customer communication.",
+      solution:
+        "We designed and built a secure CRM platform with lead tracking, role-based access, analytics dashboard, and automated follow-ups.",
+      result: "Improved sales tracking efficiency and reduced manual work by over 60%.",
     },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut',
-      },
+    {
+      icon: Rocket,
+      title: "SaaS Lead Management & Analytics System",
+      industry: "Marketing & Growth Company",
+      problem: "Client struggled to manage leads coming from multiple channels and had no visibility into conversions.",
+      solution:
+        "We built a scalable SaaS platform with lead capture, tagging, pipeline management, and conversion analytics.",
+      result: "Enabled real-time tracking of leads and improved conversion decision-making.",
     },
-  };
+    {
+      icon: Layers,
+      title: "Business Operations & Workflow Automation Tool",
+      industry: "Operations & Consulting Firm",
+      problem: "Internal processes were scattered across tools and spreadsheets.",
+      solution:
+        "We developed a custom internal platform to manage workflows, tasks, documents, and reporting in one system.",
+      result: "Streamlined operations and significantly reduced operational overhead.",
+    },
+  ];
 
   return (
     <section id="portfolio" className="py-20 bg-white dark:bg-gray-900 transition-colors">
       <div className="container mx-auto px-4">
+
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Our Work
+            Our Work & Case Studies
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Transforming Businesses with Innovative Technology Solutions
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            We respect client confidentiality. Below are selected case studies presented without revealing client names or sensitive business information.
           </p>
+
+          <div className="mt-6 inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-4 py-2 rounded-full text-sm">
+            <ShieldCheck size={18} />
+            NDA & Client Privacy Protected
+          </div>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
-        >
-          {featuredProjects.map((project, index) => (
-            <Link to={`/projects/${project.id}`} key={index}>
+        {/* Projects */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {projects.map((project, index) => {
+            const Icon = project.icon;
+            return (
               <motion.div
-                variants={itemVariants}
-                whileHover={{ y: -10 }}
-                className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700"
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow-md hover:shadow-xl transition-all"
               >
-                <div className="relative h-56 overflow-hidden">
-                  <ImageWithFallback
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 12 }}
-                    className="absolute top-4 right-4"
-                  >
-                    <div className="w-10 h-10 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="text-gray-900 dark:text-white" size={20} />
-                    </div>
-                  </motion.div>
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mb-4 text-white">
+                  <Icon size={24} />
                 </div>
-                <div className="p-6">
-                  <div className="text-sm text-blue-600 dark:text-blue-400 font-semibold mb-2">
-                    {project.category}
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">
-                    {project.description}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="text-sm font-semibold text-green-600 dark:text-green-400">
-                      {project.outcome}
-                    </div>
-                    <ArrowRight className="text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform" size={20} />
-                  </div>
+
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  {project.title}
+                </h3>
+
+                <p className="text-sm text-blue-600 dark:text-blue-400 font-medium mb-3">
+                  Industry: {project.industry}
+                </p>
+
+                <div className="space-y-3 text-gray-600 dark:text-gray-300 text-sm">
+                  <p><strong>Problem:</strong> {project.problem}</p>
+                  <p><strong>Solution:</strong> {project.solution}</p>
+                  <p><strong>Result:</strong> {project.result}</p>
                 </div>
               </motion.div>
-            </Link>
-          ))}
-        </motion.div>
+            );
+          })}
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="text-center mt-12"
-        >
-          <Button size="lg" variant="outline" className="px-8" onClick={() => navigate('/projects')}>
-            View All Projects
-          </Button>
-        </motion.div>
       </div>
     </section>
   );

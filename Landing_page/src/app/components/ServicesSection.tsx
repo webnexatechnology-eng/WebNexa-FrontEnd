@@ -1,38 +1,44 @@
-import { Code, Smartphone, Megaphone, TrendingUp, Server } from 'lucide-react';
+import { Code, Smartphone, Megaphone, TrendingUp, Server, Rocket } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
 
 export function ServicesSection() {
   const services = [
     {
+      icon: Rocket,
+      title: 'Startup & SaaS Product Development',
+      description: 'From idea to MVP to scale. We design, build, and launch production-grade SaaS and digital products that are fast, scalable, and ready for growth.',
+      image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1080',
+    },
+    {
       icon: Code,
-      title: 'Frontend Development',
-      description: 'Creating stunning, responsive user interfaces with React, TypeScript, and modern frameworks.',
-      image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXNpZ258ZW58MXx8fHwxNzY4NDI1MDM4fDA&ixlib=rb-4.1.0&q=80&w=1080',
+      title: 'High-Performance Web Development',
+      description: 'Modern, fast, SEO-friendly websites and web apps built with React, Next.js, and scalable architectures to convert visitors into customers.',
+      image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1080',
     },
     {
       icon: Server,
-      title: 'Backend Development',
-      description: 'Building robust, scalable server-side solutions with Node.js, Python, and cloud technologies.',
-      image: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZXJ2ZXIlMjByb29tfGVufDF8fHx8MTc2ODQyNTA3NHww&ixlib=rb-4.1.0&q=80&w=1080',
+      title: 'Backend & System Architecture',
+      description: 'Secure, scalable backend systems, APIs, dashboards, CRMs, and automation platforms designed to handle real business load.',
+      image: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?q=80&w=1080',
     },
     {
       icon: Smartphone,
-      title: 'Mobile Development',
-      description: 'Native iOS & Android apps for phones and tablets with exceptional user experiences.',
-      image: 'https://images.unsplash.com/photo-1556656793-08538906a9f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBkZXZlbG9wbWVudHxlbnwxfHx8fDE3Njg0MjUxMDR8MA&ixlib=rb-4.1.0&q=80&w=1080',
+      title: 'Mobile App Development',
+      description: 'High-quality Android & iOS apps built for performance, usability, and long-term scalability.',
+      image: 'https://images.unsplash.com/photo-1556656793-08538906a9f8?q=80&w=1080',
     },
     {
       icon: Megaphone,
-      title: 'Social Media Optimization',
-      description: 'Strategic SMO campaigns to boost your brand visibility and engagement across platforms.',
-      image: 'https://images.unsplash.com/photo-1683721003111-070bcc053d8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2NpYWwlMjBtZWRpYSUyMG1hcmtldGluZ3xlbnwxfHx8fDE3Njg0MjUxMzF8MA&ixlib=rb-4.1.0&q=80&w=1080',
+      title: 'Digital Growth & Brand Presence',
+      description: 'We help you build authority, trust, and inbound leads using smart digital strategies and conversion-focused content.',
+      image: 'https://images.unsplash.com/photo-1683721003111-070bcc053d8b?q=80&w=1080',
     },
     {
       icon: TrendingUp,
-      title: 'Product Marketing',
-      description: 'Comprehensive marketing strategies to launch and grow your products successfully.',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYXJrZXRpbmclMjBhbmFseXRpY3N8ZW58MXx8fHwxNzY4NDI1MTU2fDA&ixlib=rb-4.1.0&q=80&w=1080',
+      title: 'Product Launch & Scaling Strategy',
+      description: 'We don’t stop at building. We help you launch, optimize, and scale your product to real users and real revenue.',
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1080',
     },
   ];
 
@@ -68,10 +74,10 @@ export function ServicesSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Our Expertise
+            What We Build For You
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Comprehensive IT and technology solutions tailored to your business goals
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            We design, build, and scale digital products and platforms that help businesses grow faster, operate smarter, and sell better.
           </p>
         </motion.div>
 

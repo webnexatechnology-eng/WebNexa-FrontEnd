@@ -9,6 +9,10 @@ export function ContactSection() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    company: "",
+    projectType: "",
+    budget: "",
+    timeline: "",
     message: "",
   });
 
@@ -17,102 +21,124 @@ export function ContactSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (loading) return;
 
     try {
       setLoading(true);
       setSuccess(false);
 
-      // ⚡ UI FEELS INSTANT
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 15000);
 
       const res = await fetch("https://webnexa-backend.onrender.com/api/leads", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
         signal: controller.signal,
       });
 
       clearTimeout(timeout);
 
-      if (!res.ok) {
-        throw new Error("Failed to submit");
-      }
+      if (!res.ok) throw new Error("Failed");
 
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({
+        name: "",
+        email: "",
+        company: "",
+        projectType: "",
+        budget: "",
+        timeline: "",
+        message: "",
+      });
+
       setSuccess(true);
+      toast.success("Your request has been received!");
 
-      toast.success("Message sent successfully!");
-
-      // auto hide success after 4 sec
       setTimeout(() => setSuccess(false), 4000);
-
-    } catch (err) {
+    } catch {
       toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
     <section id="contact" className="py-20 bg-white dark:bg-gray-900 transition-colors">
       <div className="container mx-auto px-4">
+
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Ready to Bring Your Idea to Life?
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Let's make your idea a reality. Contact us today for a free consultation.
+            Tell us about your project and we’ll get back to you within 24 hours.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Contact Form */}
+
+          {/* FORM */}
           <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-800/50 p-8 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              Get in Touch
-            </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <Input name="name" value={formData.name} onChange={handleChange} placeholder="Your Name" className="w-full bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400" required />
-              <Input name="email" value={formData.email} onChange={handleChange} placeholder="Email" className="w-full bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400" required />
-              <Textarea name="message" value={formData.message} onChange={handleChange} placeholder="Message" className="w-full bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400" required />
+            <form onSubmit={handleSubmit} className="space-y-5">
 
-              <Button
-                type="submit"
-                size="lg"
-                disabled={loading}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white disabled:opacity-70 flex items-center justify-center gap-2"
-              >
+              <Input name="name" value={formData.name} onChange={handleChange} placeholder="Your Name *" required className="w-full h-11 rounded-md border px-3 bg-white dark:bg-gray-700 dark:border-gray-600"/>
+              <Input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Business Email *" required className="w-full h-11 rounded-md border px-3 bg-white dark:bg-gray-700 dark:border-gray-600" />
+              <Input name="company" value={formData.company} onChange={handleChange} placeholder="Company / Startup Name" className ="w-full h-11 rounded-md border px-3 bg-white dark:bg-gray-700 dark:border-gray-600" />
+
+              <select name="projectType" value={formData.projectType} onChange={handleChange} required className="w-full h-11 rounded-md border px-3 bg-white dark:bg-gray-700 dark:border-gray-600">
+                <option value="">Select Project Type *</option>
+                <option value="website">Website / Landing Page</option>
+                <option value="webapp">Web Application</option>
+                <option value="mobile">Mobile App</option>
+                <option value="saas">SaaS Platform</option>
+                <option value="other">Other</option>
+              </select>
+
+              <select name="budget" value={formData.budget} onChange={handleChange} required className="w-full h-11 rounded-md border px-3 bg-white dark:bg-gray-700 dark:border-gray-600">
+                <option value="">Estimated Budget *</option>
+                <option value="under-1k">Under $1,000</option>
+                <option value="1k-5k">$1,000 – $5,000</option>
+                <option value="5k-10k">$5,000 – $10,000</option>
+                <option value="10k+">$10,000+</option>
+              </select>
+
+              <select name="timeline" value={formData.timeline} onChange={handleChange} required className="w-full h-11 rounded-md border px-3 bg-white dark:bg-gray-700 dark:border-gray-600">
+                <option value="">Project Timeline *</option>
+                <option value="urgent">ASAP</option>
+                <option value="1-3">1–3 Months</option>
+                <option value="3-6">3–6 Months</option>
+                <option value="flexible">Flexible</option>
+              </select>
+
+              <Textarea name="message" rows={5} value={formData.message} onChange={handleChange} placeholder="Briefly describe your project..." required className="w-full h-11 rounded-md border px-3 bg-white dark:bg-gray-700 dark:border-gray-600" />
+
+              <Button type="submit" size="lg" disabled={loading} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white">
                 {loading ? (
                   <>
-                    <Loader2 className="animate-spin" />
-                    Sending...
+                    <Loader2 className="animate-spin mr-2" /> Sending...
                   </>
                 ) : (
                   <>
-                    <Send size={18} />
-                    Send Message
+                    <Send size={18} className="mr-2" /> Send Request
                   </>
                 )}
               </Button>
 
-              {/* ✅ SUCCESS ANIMATION */}
+              <p className="text-xs text-gray-500 text-center">
+                🔒 Your data is confidential. NDA & privacy respected.
+              </p>
+
               {success && (
                 <div className="flex items-center justify-center gap-2 text-green-600 font-medium animate-in fade-in slide-in-from-bottom-2">
                   <CheckCircle2 />
-                  Message sent successfully!
+                  Your request has been sent successfully!
                 </div>
               )}
 
