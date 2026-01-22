@@ -68,6 +68,10 @@ export function ContactSection() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const fieldClass =
+  "w-full h-11 rounded-md border px-3 text-sm bg-white dark:bg-gray-700 dark:border-gray-600 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition";
+
+
   return (
     <section id="contact" className="py-20 bg-white dark:bg-gray-900 transition-colors">
       <div className="container mx-auto px-4">
@@ -88,9 +92,9 @@ export function ContactSection() {
 
             <form onSubmit={handleSubmit} className="space-y-5">
 
-              <Input name="name" value={formData.name} onChange={handleChange} placeholder="Your Name *" required className="w-full h-11 rounded-md border px-3 bg-white dark:bg-gray-700 dark:border-gray-600"/>
-              <Input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Business Email *" required className="w-full h-11 rounded-md border px-3 bg-white dark:bg-gray-700 dark:border-gray-600" />
-              <Input name="company" value={formData.company} onChange={handleChange} placeholder="Company / Startup Name" className ="w-full h-11 rounded-md border px-3 bg-white dark:bg-gray-700 dark:border-gray-600" />
+              <Input name="name" value={formData.name} onChange={handleChange} placeholder="Your Name *" required className={fieldClass}/>
+              <Input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Business Email *" required className={fieldClass} />
+              <Input name="company" value={formData.company} onChange={handleChange} placeholder="Company / Startup Name" className={fieldClass} />
 
               <select name="projectType" value={formData.projectType} onChange={handleChange} required className="w-full h-11 rounded-md border px-3 bg-white dark:bg-gray-700 dark:border-gray-600">
                 <option value="">Select Project Type *</option>
@@ -117,7 +121,7 @@ export function ContactSection() {
                 <option value="flexible">Flexible</option>
               </select>
 
-              <Textarea name="message" rows={5} value={formData.message} onChange={handleChange} placeholder="Briefly describe your project..." required className="w-full h-11 rounded-md border px-3 bg-white dark:bg-gray-700 dark:border-gray-600" />
+              <Textarea name="message" rows={5} value={formData.message} onChange={handleChange} placeholder="Briefly describe your project..." required className={fieldClass} />
 
               <Button type="submit" size="lg" disabled={loading} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white">
                 {loading ? (
